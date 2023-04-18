@@ -5,14 +5,20 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
+  const directions = {
+    asc: 1,
+    desc: -1
+  };
 
-  let newArr = arr.slice().sort(function (a, b) {
-    return a.localeCompare(b, ["ru", "en"], {caseFirst: "upper"});
-  });
-  if (param === 'desc') {
-    newArr.sort(function (a, b) {
-      return b.localeCompare(a, ["ru", "en"], {caseFirst: "upper"});
-    });
+  const direction = directions[param];
+
+  if (typeof direction === 'undefined') {
+    console.error(`unexpected param: ${param} can not sort strings`);
   }
-  return newArr;
+
+  return arr.slice().sort(function (a, b) {
+    return direction * a.localeCompare(b,
+      ["ru", "en"],
+      {caseFirst: "upper"});
+  });
 }
