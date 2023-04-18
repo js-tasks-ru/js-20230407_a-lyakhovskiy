@@ -5,15 +5,14 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-  if (param === 'asc') {
-    return arr.slice().sort(function (a, b) {
-      return a.localeCompare(b, ["ru", "en"], {caseFirst: "upper"});
+
+  let newArr = arr.slice().sort(function (a, b) {
+    return a.localeCompare(b, ["ru", "en"], {caseFirst: "upper"});
+  });
+  if (param === 'desc') {
+    newArr.sort(function (a, b) {
+      return b.localeCompare(a, ["ru", "en"], {caseFirst: "upper"});
     });
-  } else if (param === 'desc') {
-    return arr.slice().sort(function (a, b) {
-      return a.localeCompare(b, ["ru", "en"], {caseFirst: "upper"});
-    }).reverse();
-  } else {
-    console.error('unexpected param');
   }
+  return newArr;
 }
