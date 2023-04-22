@@ -6,14 +6,14 @@
 export function createGetter(path) {
   let arr = path.split('.');
   return function (obj) {
-    let newObj = obj;
+    let result = {...obj};
     for (let i = 0; i < arr.length; i++) {
-      if (newObj[arr[i]] === undefined) {
+      if (result[arr[i]] === undefined) {
         return;
       }
-      newObj = newObj[arr[i]];
+      result = result[arr[i]];
     }
-    return newObj;
+    return result;
   };
 }
 
